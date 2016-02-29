@@ -56,7 +56,8 @@ public class App {
     post("/tasks", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       String description = request.queryParams("description");
-      Task newTask = new Task(description);
+      String dueDate = request.queryParams("dueDate");
+      Task newTask = new Task(description, dueDate);
       newTask.save();
       response.redirect("/tasks");
       return null;
@@ -74,6 +75,7 @@ public class App {
     post("/add_tasks", (request, response) -> {
       int taskId = Integer.parseInt(request.queryParams("task_id"));
       int categoryId = Integer.parseInt(request.queryParams("category_id"));
+      String dueDate = request.queryParams("dueDate");
       Category category = Category.find(categoryId);
       Task task = Task.find(taskId);
       category.addTask(task);

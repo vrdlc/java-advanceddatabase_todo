@@ -5,6 +5,7 @@ import org.sql2o.*;
 public class Task {
   private int id;
   private String descriptions;
+  private String dueDate;
 
   public int getId() {
     return id;
@@ -14,8 +15,13 @@ public class Task {
     return descriptions;
   }
 
-  public Task(String descriptions) {
+  public String getDueDate() {
+    return dueDate;
+  }
+
+  public Task(String descriptions, String dueDate) {
     this.descriptions = descriptions;
+    this.dueDate = dueDate;
   }
 
   @Override
@@ -25,13 +31,13 @@ public class Task {
     } else {
       Task newTask = (Task) otherTask;
       return this.getDescriptions().equals(newTask.getDescriptions()) &&
-      this.getId() == newTask.getId();
+      this.getId() == newTask.getId() && this.getDueDate() == newTask.getDueDate();
     }
   }
 
 
   public static List<Task> all() {
-    String sql = "SELECT id, descriptions FROM tasks";
+    String sql = "SELECT id, descriptions, dueDate FROM tasks ORDER BY dueDate";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Task.class);
     }
@@ -39,9 +45,10 @@ public class Task {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO tasks(descriptions) VALUES (:descriptions)";
+      String sql = "INSERT INTO tasks(descriptions, dueDate) VALUES (:descriptions, :dueDate)";
       this.id = (int) con.createQuery(sql, true)
       .addParameter("descriptions", descriptions)
+      .addParameter("dueDate", dueDate)
       .executeUpdate()
       .getKey();
     }
@@ -59,9 +66,10 @@ public class Task {
 
   public void update(String descriptions) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE tasks SET descriptions = :descriptions WHERE id = :id";
+      String sql = "UPDATE tasks SET descriptions = :descriptions, dueDate = :dueDate WHERE id = :id";
       con.createQuery(sql)
       .addParameter("descriptions", descriptions)
+      .addParameter("dueDate", dueDate)
       .addParameter("id", id)
       .executeUpdate();
     }

@@ -6,7 +6,8 @@ tasks.vtl
 
 <form action="/tasks" method="post">
   <label for="description">Task Description</label>
-  <input id="description" name="description" type="text">
+  <input id="description" name="description" type="text" required autofocus="autofocus">
+  <input id="dueDate" name="dueDate" type="date">
 
   <button type="submit">Add task</button>
 </form>
