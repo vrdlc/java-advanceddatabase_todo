@@ -1,10 +1,12 @@
-<h1>$task.getDescription()</h1>
+task.vtl
+
+<h1>$task.getDescriptions()</h1>
 
 #if($task.getCategories())
   <p>Here are the categories for this task:</p>
   <ul>
     #foreach($category in $task.getCategories())
-      <li>$category.getName()</li>
+      <li>$category.getNames()</li>
     #end
   </ul>
 #end
@@ -16,7 +18,7 @@
     <label for="category_id">Select a category</label>
     <select id='category_id' name='category_id' type='text'>
       #foreach($category in $allCategories)
-        <option value="$category.getId()"> $category.getName() </option>
+        <option value="$category.getId()"> $category.getNames() </option>
       #end
     </select>
     <button type='submit'>Add category</button>

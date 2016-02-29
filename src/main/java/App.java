@@ -90,5 +90,14 @@ public class App {
       response.redirect("/tasks/" + taskId);
       return null;
     });
+
+    // delete("/tasks", (request, response) -> {
+    //   int id = Integer.parseInt(request.params(":id"));
+    //   Category category = Category.find(categoryId);
+    //   Task task = Task.find(taskId);
+    //   task.delete();
+    //   response.redirect("/tasks/" + categoryId);
+    //   return null;
+    // })
   }
 }

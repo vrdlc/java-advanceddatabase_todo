@@ -1,3 +1,5 @@
+categories.vtl
+
 <h1>Categories list!</h1>
 
 <p>Add a new category:</p>
@@ -10,7 +12,7 @@
 </form>
 
 #foreach ($category in $categories)
-  <li><a href="/categories/$category.getId()">$category.getName()</a></li>
+  <li><a href="/categories/$category.getId()">$category.getNames()</a></li>
 #end
 
 <p><a href='/'>Home</a></p>

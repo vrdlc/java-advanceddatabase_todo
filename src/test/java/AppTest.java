@@ -31,13 +31,13 @@ public class AppTest extends FluentTest {
   }
 
 
-  @Test
-  public void categoryIsDisplayedTest() {
-    Category myCategory = new Category("Shopping");
-    myCategory.save();
-    goTo("http://localhost:4567");
-    assertThat(pageSource()).contains("Shopping");
-  }
+  // @Test
+  // public void categoryIsDisplayedTest() {
+  //   Category myCategory = new Category("Shopping");
+  //   myCategory.save();
+  //   goTo("http://localhost:4567");
+  //   assertThat(pageSource()).contains("Shopping");
+  // }
 
   // @Test
   // public void allTasksDisplayDescriptionOnCategoryPage() {
@@ -52,7 +52,7 @@ public class AppTest extends FluentTest {
   //   assertThat(pageSource()).contains("Mow the lawn");
   //   assertThat(pageSource()).contains("Do the dishes");
   // }
-
+  //
   // @Test
   // public void categoryIsDeleted() {
   //   Category myCategory = new Category("Household chores");
