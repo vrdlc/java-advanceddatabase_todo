@@ -2,6 +2,7 @@ task.vtl
 
 <h1>$task.getDescriptions()</h1>
 <h3>$task.getDueDate()</h3>
+<h3>$task.getNotes()</h3>
 
 #if($task.getCategories())
   <p>Here are the categories for this task:</p>
@@ -25,6 +26,16 @@ task.vtl
     <button type='submit'>Add category</button>
 </form>
 
-<p><a href="/tasks/$task.getId()/edit">Edit this task</a></p>
+
+
+<form action="/update_task" method="post">
+  <label>Add a Note:</label><br>
+  <input id="taskId" name="taskId" type=hidden value="$task.getId()">
+
+  <textarea rows="10" cols="50" type="text" name="taskNotes" id="taskNotes" required autofocus="autofocus"></textarea>
+  <br>
+  <button type="submit" name="taskButton" class="btn btn-info">Submit</button>
+</form>
+<p><a href="/tasks/$task.getId()/tasks-update">Edit this task</a></p>
 
 <p><a href='/'>Home</a></p>

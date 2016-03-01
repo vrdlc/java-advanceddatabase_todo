@@ -13,10 +13,10 @@ tasks.vtl
 </form>
 
 #foreach ($task in $tasks)
-  <li><a href="/tasks/$task.getId()">$task.getDescriptions()</a>
+<li><h3><a href="/tasks/$task.getId()">$task.getDescriptions()</a>
 
   #if ($task.getDueDate().length() >= 1) Due Date: $task.getDueDate() #end
-  </li>
-#end
+
+  #end
 
 <p><a href='/'>Home</a></p>

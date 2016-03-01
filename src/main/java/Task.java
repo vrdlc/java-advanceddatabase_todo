@@ -6,6 +6,7 @@ public class Task {
   private int id;
   private String descriptions;
   private String dueDate;
+  private String notes;
 
   public int getId() {
     return id;
@@ -19,9 +20,14 @@ public class Task {
     return dueDate;
   }
 
-  public Task(String descriptions, String dueDate) {
+  public String getNotes() {
+    return notes;
+  }
+
+  public Task(String descriptions, String dueDate, String notes) {
     this.descriptions = descriptions;
     this.dueDate = dueDate;
+    this.notes = notes;
   }
 
   @Override
@@ -37,7 +43,7 @@ public class Task {
 
 
   public static List<Task> all() {
-    String sql = "SELECT id, descriptions, dueDate FROM tasks ORDER BY dueDate";
+    String sql = "SELECT id, descriptions, dueDate, notes FROM tasks ORDER BY dueDate";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Task.class);
     }
@@ -45,10 +51,11 @@ public class Task {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO tasks(descriptions, dueDate) VALUES (:descriptions, :dueDate)";
+      String sql = "INSERT INTO tasks(descriptions, dueDate, notes) VALUES (:descriptions, :dueDate, :notes)";
       this.id = (int) con.createQuery(sql, true)
       .addParameter("descriptions", descriptions)
       .addParameter("dueDate", dueDate)
+      .addParameter("notes", notes)
       .executeUpdate()
       .getKey();
     }
@@ -66,10 +73,11 @@ public class Task {
 
   public void update(String descriptions) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE tasks SET descriptions = :descriptions, dueDate = :dueDate WHERE id = :id";
+      String sql = "UPDATE tasks SET descriptions = :descriptions, dueDate = :dueDate, notes = :notes";
       con.createQuery(sql)
       .addParameter("descriptions", descriptions)
       .addParameter("dueDate", dueDate)
+      .addParameter("notes", notes)
       .addParameter("id", id)
       .executeUpdate();
     }

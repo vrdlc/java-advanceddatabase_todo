@@ -53,11 +53,18 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    // get("/tasks-update", (request, response) -> {
+    //   HashMap<String, Object> model = new HashMap<String, Object>();
+    //   int id = Integer.parsInt(request.params("id"));
+    //   Task task = Task.find(id);
+    //
+    // })
+
     post("/tasks", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       String description = request.queryParams("description");
       String dueDate = request.queryParams("dueDate");
-      Task newTask = new Task(description, dueDate);
+      Task newTask = new Task(description, dueDate, null);
       newTask.save();
       response.redirect("/tasks");
       return null;
@@ -92,6 +99,14 @@ public class App {
       response.redirect("/tasks/" + taskId);
       return null;
     });
+
+    // post("/update_task", (request, response) -> {
+    //   int taskId = Integer.parseInt(request.queryParams("taskId"));
+    //   String note = request.queryParams("taskNotes");
+    //
+    //   response.redirect("/tasks/" + taskId);
+    //   return null;
+    // });
 
     // delete("/tasks", (request, response) -> {
     //   int id = Integer.parseInt(request.params(":id"));
