@@ -12,11 +12,17 @@ tasks.vtl
   <button type="submit">Add task</button>
 </form>
 
-#foreach ($task in $tasks)
-<li><h3><a href="/tasks/$task.getId()">$task.getDescriptions()</a>
+<ul>
 
-  #if ($task.getDueDate().length() >= 1) Due Date: $task.getDueDate() #end
 
-  #end
+#foreach($task in $tasks)
+<li><h4>$task.getDescription() #if ($task.getDueDate().length() >= 1)  Due Date: $task.getDueDate()#end</h4></li>
+<form action="/delete/task/$task.getId()" method="post">
+  <input id="categoryId" name="categoryId" type=hidden value="$category.getId()">
+  <button type="submit" id="$task.getId()" name="$task.getId()" class="btn btn-danger">
+  Delete Task</button></h4>
+</form>
+#end
+</ul>
 
 <p><a href='/'>Home</a></p>

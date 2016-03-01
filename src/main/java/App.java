@@ -100,6 +100,16 @@ public class App {
       return null;
     });
 
+    post("/delete/task/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int id = Integer.parseInt(request.params(":id"));
+      Task task = Task.find(id);
+      task.delete();
+      model.put("tasks", task);
+      model.put("template", "templates/tasks.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
     // post("/update_task", (request, response) -> {
     //   int taskId = Integer.parseInt(request.queryParams("taskId"));
     //   String note = request.queryParams("taskNotes");
